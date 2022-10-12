@@ -1,3 +1,4 @@
+from distutils.cmd import Command
 import discord
 from discord.ext import commands
 
