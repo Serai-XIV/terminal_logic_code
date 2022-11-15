@@ -20,26 +20,52 @@ Non_Logical_Symbols = {
     "Punctuation marks": "(,) ,",
 }
 
-Bivalence = {"True": "T", "False": "F"}
+Bivalence = {"True": 'T', "False": 'F'}
 
 
 def valuation(Forumla):  # The Defintion of the valuation Function
 
-    if Forumla == Bivalence["False"]:
-        Formula = False
-    else:
+    if Forumla == True:
         Formula = True
-    
+    else:
+        Formula = False
+
     return Formula
 
 
-def Negation(Proposition = 'P'):
+def negation(Proposition):
 
     if valuation(Proposition):
-        Proposition = Bivalence["False"]
-    else:
         Proposition = Bivalence["True"]
-    
+    else:
+        Proposition = Bivalence["False"]
+
     return Proposition
 
-print(Negation('P'))
+
+def conjunction(Left_Hand_Proposition, Right_Hand_Proposition):
+
+    if valuation(Left_Hand_Proposition) and valuation(Right_Hand_Proposition):
+        Formula = Bivalence["True"]
+
+    elif valuation(Left_Hand_Proposition) or valuation(Right_Hand_Proposition):
+        Formula = Bivalence["False"]
+    else:
+        Formula = Bivalence["False"]
+
+    return Formula
+
+
+def disjunction(Left_hand_disjunct, Right_Hand_Disjunct):
+
+    if valuation(Left_hand_disjunct) or valuation(Right_Hand_Disjunct):
+        Formula = Bivalence["True"]
+
+    elif valuation(Left_hand_disjunct) and valuation(Right_Hand_Disjunct):
+        Formula = Bivalence["False"]
+    else:
+        Formula = Bivalence["False"]
+
+    return Formula
+
+
