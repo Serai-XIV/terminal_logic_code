@@ -20,7 +20,7 @@ Non_Logical_Symbols = {
     "Punctuation marks": "(,) ,",
 }
 
-Bivalence = {"True": 'T', "False": 'F'}
+Bivalence = {"True": "T", "False": "F"}
 
 
 def valuation(Forumla):  # The Defintion of the valuation Function
@@ -67,5 +67,21 @@ def disjunction(Left_hand_disjunct, Right_Hand_Disjunct):
         Formula = Bivalence["False"]
 
     return Formula
+
+
+def m_condtional(
+    Left_Proposition, Right_Proposition
+):  # FIXME define material conditional
+
+    pass
+
+
+def truth_table(
+    *statements,
+):  # FIXME create a for loop, and express the relationship between num of atomic propositions and lines in a truth table
+
+    for num in Bivalence:
+        for number in {"F", "T"}:
+            print(num, number)
 
 
