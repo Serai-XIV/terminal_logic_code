@@ -1,4 +1,5 @@
-import Functions_and_Rules 
+import Functions_and_Rules  # import frunctios from file 'Quantifier Rules.py'
+
 
 def answer():
     user_aws = str(input("Would you like to to Enter a constant?: "))
