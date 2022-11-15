@@ -1,4 +1,4 @@
-import Functions_and_Rules  # FIXME import functions from file 'Quantifier Rules.py'
+import functions_and_rules.quantifier_rules
 
 
 def answer():
