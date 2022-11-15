@@ -1,11 +1,11 @@
-import functions_and_rules.quantifier_rules
+from functions_and_rules.quantifier_rules import universal_instantiation
 
 
 def answer():
     user_aws = str(input("Would you like to to Enter a constant?: "))
     if (user_aws == "Yes") or (user_aws == "yes"):
         user_constant = str(input("Enter a Constant: "))
-        print(universal_intantiation(formula, user_constant))
+        print(universal_instantiation(formula, user_constant))
     else:
         print("Goodbye")
 
