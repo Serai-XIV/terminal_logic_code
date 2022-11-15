@@ -1,4 +1,4 @@
-def universal_intantiation(formula="∀x(Sx ⇒ Px)", constant="a"):
+def universal_instantiation(formula="∀x(Sx ⇒ Px)", constant="a"):
     variable = "x" or "y" or "z"
     new_formula = (
         formula.replace(variable, constant)
@@ -11,7 +11,7 @@ def universal_intantiation(formula="∀x(Sx ⇒ Px)", constant="a"):
     return new_formula2
 
 
-def existential_intantiation(formula="∃x(Sx ∧ Px)", constant="a"):
+def existential_instantiation(formula="∃x(Sx ∧ Px)", constant="a"):
     variable = "x" or "y" or "z"
     new_formula = (
         formula.replace(variable, constant)
