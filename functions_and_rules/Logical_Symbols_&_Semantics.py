@@ -25,7 +25,7 @@ Bivalence = {"True": "T", "False": "F"}
 
 def valuation(Forumla):  # The Defintion of the valuation Function
 
-    if Forumla == True:
+    if Forumla == Bivalence["True"]:
         Formula = True
     else:
         Formula = False
@@ -36,9 +36,9 @@ def valuation(Forumla):  # The Defintion of the valuation Function
 def negation(Proposition):
 
     if valuation(Proposition):
-        Proposition = Bivalence["True"]
-    else:
         Proposition = Bivalence["False"]
+    else:
+        Proposition = Bivalence["True"]
 
     return Proposition
 
@@ -80,8 +80,12 @@ def truth_table(
     *statements,
 ):  # FIXME create a for loop, and express the relationship between num of atomic propositions and lines in a truth table
 
-    for num in Bivalence:
-        for number in {"F", "T"}:
-            print(num, number)
+    truth_values = {'T', 'F'}
+
+    for n in truth_values:
+        for number in {'F', 'T'}:
+            print(n, number)
+
+    pass
 
 
