@@ -69,23 +69,25 @@ def disjunction(Left_hand_disjunct, Right_Hand_Disjunct):
     return Formula
 
 
-def m_condtional(
-    Left_Proposition, Right_Proposition
-):  # FIXME define material conditional
+def m_condtional(Left_Proposition, Right_Proposition):
 
-    pass
+    if disjunction(negation(Left_Proposition), Right_Proposition):
+        Formula = Bivalence["True"]
+    else:
+        Formula = Bivalence["False"]
+
+    return Formula
 
 
 def truth_table(
     *statements,
 ):  # FIXME create a for loop, and express the relationship between num of atomic propositions and lines in a truth table
 
-    truth_values = {'T', 'F'}
+    truth_values = {"T", "F"}
 
     for n in truth_values:
-        for number in {'F', 'T'}:
+        for number in {"F", "T"}:
             print(n, number)
 
     pass
-
 
