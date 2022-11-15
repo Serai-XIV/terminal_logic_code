@@ -1,4 +1,4 @@
-import Functions_and_Rules  # import frunctios from file 'Quantifier Rules.py'
+import Functions_and_Rules  # FIXME import functions from file 'Quantifier Rules.py'
 
 
 def answer():
