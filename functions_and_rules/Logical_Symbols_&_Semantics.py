@@ -74,7 +74,7 @@ def disjunction(Left_hand_disjunct, Right_Hand_Disjunct):
 
 def m_condtional(Left_Proposition, Right_Proposition):
 
-    if disjunction(negation(Left_Proposition), Right_Proposition):
+    if valuation(negation(Left_Proposition)) or valuation(Right_Proposition):
         Formula = Bivalence["True"]
     else:
         Formula = Bivalence["False"]
@@ -84,9 +84,7 @@ def m_condtional(Left_Proposition, Right_Proposition):
 
 def m_biconditional(Left_implication, right_implication):
 
-    if m_condtional(Left_implication, right_implication) and m_condtional(
-        right_implication, Left_implication
-    ):
+    if (valuation(negation(Left_implication)) or valuation(right_implication)) and (valuation(negation(right_implication)) or valuation(Left_implication)):
         Formula = Bivalence["True"]
     else:
         Formula = Bivalence["False"]
@@ -149,7 +147,7 @@ print(
     f'If P is true, and Q is false; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("T", "F")}'
 )
 print(
-    f'If P is false, and Q is true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return false: {m_condtional("F", "T")}'  # FIXME this should return false
+    f'If P is false, and Q is true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return false: {m_condtional("F", "T")}'  
 )
 print(
     f'If P is false, and Q is false; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("F", "F")}\n'
@@ -159,10 +157,10 @@ print(
     f'If P is true, and Q true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_biconditional("T", "T")}'
 )  # the material bi-conditional should return true if and only if both operands have the same truth value, and otherwise false
 print(
-    f'If P is true, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("T", "F")}'  # FIXME this should return false
+    f'If P is true, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("T", "F")}'  
 )
 print(
-    f'If P is false, and Q is true; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("F", "T")}'  # FIXME this should return false
+    f'If P is false, and Q is true; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("F", "T")}'  
 )
 print(
     f'If P is false, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return true: {m_biconditional("F", "F")}\n'
