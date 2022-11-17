@@ -1,5 +1,5 @@
 from functions_and_rules.quantifier_rules import universal_instantiation
-
+from functions_and_rules.Logical_Symbols_and_Semantics import conjunction, m_condtional, disjunction, m_biconditional, negation, Logical_Symbols, Logical_operators
 
 def answer():
     user_aws = str(input("Would you like to to Enter a constant?: "))
@@ -15,3 +15,5 @@ formula = f"∀{user_variable}(S{user_variable} ⇒ P{user_variable})"
 print(f'Your formula" {formula}')
 
 answer()
+
+Logical_operators()
