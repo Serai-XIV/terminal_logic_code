@@ -16,4 +16,10 @@ print(f'Your formula" {formula}')
 
 answer()
 
-Logical_operators()
+user_aws = input('Would you like to see the conditions for the main logical operators?: ')
+print()
+
+if user_aws == 'Yes' or 'yes' or 'y':
+    Logical_operators()
+else:
+    print('Goodbye')
