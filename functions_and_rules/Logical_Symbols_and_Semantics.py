@@ -10,19 +10,33 @@ represent each operator.
 The dictionary can be used as a reference for logical operator symbols, and
 can be easily updated and extended to add more operators or symbols.
 """
+
+# A dictionary that maps logical operators to their corresponding symbols in various notation systems
 Logical_Symbols = dict(
+    # Negation: represents the logical operation of negation, which is the reversal of the truth value of a proposition
     Negation=["¬", "~", "!", "not"],
+    # Conjunction: represents the logical operation of conjunction, which is the combination of two propositions in such a way that the resulting proposition is only true if both of the original propositions are true
     Conjunction=["∧", "&", "·", "and"],
+    # Inclusive disjunction: represents the logical operation of inclusive disjunction, which is the combination of two propositions in such a way that the resulting proposition is true if either of the original propositions are true (or if both are true)
     Inclusive_Disjunction=["∨", "or"],
+    # Material conditional: represents the logical operation of material conditional, which is a type of conditional statement in logic that is only considered true if the antecedent is false or the consequent is true
     Material_Conditional=["→", "⇒", "⊃", "if, then"],
+    # Material biconditional: represents the logical operation of material biconditional, which is a type of conditional statement in logic that is only considered true if the antecedent and consequent are both true or both false
     Material_Bi_Conditional=["↔", "⇔", "≡"],
+    # Universal quantifier: represents the universal quantifier, which is a logical symbol used to indicate that a statement holds for all possible values of a variable
     Universal_Quantifier="∀",
+    # Existential quantifier: represents the existential quantifier, which is a logical symbol used to indicate that a statement holds for at least one possible value of a variable
     Existential_Quantifier="∃",
+    # Falsum: represents the logical constant falsum, which is the symbol used to denote a false proposition in logic
     Falsum="⊥",
+    # Verum: represents the logical constant verum, which is the symbol used to denote a true proposition in logic
     Verum="⊤",
+    # Identical to: represents the symbol used to denote identity in logic
     Identical_to="=",
+    # Variables: represents a list of common variables used in logical statements
     Variables=["x", "y", "z"],
 )
+
 
 # Add more entries to the dictionary using the update() method
 Logical_Symbols.update(
