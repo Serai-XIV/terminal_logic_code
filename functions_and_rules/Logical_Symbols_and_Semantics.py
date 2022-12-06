@@ -128,77 +128,98 @@ def m_biconditional(Left_implication, right_implication):
 
 def truth_table(
     *statements,
-):  # FIXME create a for loop, and express the relationship between num of atomic propositions and lines in a truth table
+):  # FIXME: This function is not working properly, it should be taking in a variable number of statements as input, and print a truth table that shows the truth values of the statements for all possible combinations of truth values for the atomic propositions
+    """
+    Create a truth table for a given set of statements.
 
+    This function takes a variable number of statements as input, and prints a truth
+    table that shows the truth values of the statements for all possible combinations
+    of truth values for the atomic propositions.
+
+    Args:
+        *statements: a variable number of strings representing the statements to be included in the truth table.
+
+    Returns:
+        None
+    """
+    # Define a set of possible truth values
     truth_values = {"T", "F"}
 
+    # Iterate over the truth values set
     for n in truth_values:
+        # For each element in the truth values set, print the element along with each element in the {"F", "T"} set
         for number in {"F", "T"}:
             print(n, number)
 
     pass
 
+
 def Logical_operators():
     print(
-    f'If P is false, then {Logical_Symbols["Negation"][0]}P shall return true: {negation("F")}'
-)  # negation should return true if false, and false if true
+        f'If P is false, then {Logical_Symbols["Negation"][0]}P shall return true: {negation("F")}'
+    )  # negation should return true if false, and false if true
     print(
-    f'If P is true, then {Logical_Symbols["Negation"][0]}P shall return false: {negation("T")}\n'
-)
+        f'If P is true, then {Logical_Symbols["Negation"][0]}P shall return false: {negation("T")}\n'
+    )
 
     print(
-    f'If P is true, and Q true; then P {Logical_Symbols["Conjunction"][0]} Q shall return true: {conjunction("T", "T")}'
-)  # the conjunction should return true if and only if both operands are true, and false otherwise
+        f'If P is true, and Q true; then P {Logical_Symbols["Conjunction"][0]} Q shall return true: {conjunction("T", "T")}'
+    )  # the conjunction should return true if and only if both operands are true, and false otherwise
     print(
-    f'If P is true, and Q is false; then P {Logical_Symbols["Conjunction"][0]} Q shall return flase: {conjunction("T", "F")}'
-)
+        f'If P is true, and Q is false; then P {Logical_Symbols["Conjunction"][0]} Q shall return flase: {conjunction("T", "F")}'
+    )
     print(
-    f'If P is false, and Q is true; then P {Logical_Symbols["Conjunction"][0]} Q shall return flase: {conjunction("F", "T")}'
-)
+        f'If P is false, and Q is true; then P {Logical_Symbols["Conjunction"][0]} Q shall return flase: {conjunction("F", "T")}'
+    )
     print(
-    f'If P is false, and Q is false; then P {Logical_Symbols["Conjunction"][0]} Q shall return flase: {conjunction("F", "F")}\n'
-)
+        f'If P is false, and Q is false; then P {Logical_Symbols["Conjunction"][0]} Q shall return flase: {conjunction("F", "F")}\n'
+    )
 
     print(
-    f'If P is true, and Q true; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return true: {disjunction("T", "T")}'
-)  # the inclusive disjunction should return false if and only if both operands are false, and true otherwise
+        f'If P is true, and Q true; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return true: {disjunction("T", "T")}'
+    )  # the inclusive disjunction should return false if and only if both operands are false, and true otherwise
     print(
-    f'If P is true, and Q is false; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return true: {disjunction("T", "F")}'
-)
+        f'If P is true, and Q is false; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return true: {disjunction("T", "F")}'
+    )
     print(
-    f'If P is false, and Q is true; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return true: {disjunction("F", "T")}'
-)
+        f'If P is false, and Q is true; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return true: {disjunction("F", "T")}'
+    )
     print(
-    f'If P is false, and Q is false; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return false: {disjunction("F", "F")}\n'
-)
+        f'If P is false, and Q is false; then P {Logical_Symbols["Inclusive Disjunction"][0]} Q shall return false: {disjunction("F", "F")}\n'
+    )
 
     print(
-    f'If P is true, and Q true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("T", "T")}'
-)  # the material conditional should return false if and only if the right operand is false while leaving the left operand true; otherwise true
+        f'If P is true, and Q true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("T", "T")}'
+    )  # the material conditional should return false if and only if the right operand is false while leaving the left operand true; otherwise true
     print(
-    f'If P is true, and Q is false; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("T", "F")}'
-)
+        f'If P is true, and Q is false; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("T", "F")}'
+    )
     print(
-    f'If P is false, and Q is true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return false: {m_condtional("F", "T")}'
-)
+        f'If P is false, and Q is true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return false: {m_condtional("F", "T")}'
+    )
     print(
-    f'If P is false, and Q is false; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("F", "F")}\n'
-)
+        f'If P is false, and Q is false; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_condtional("F", "F")}\n'
+    )
 
     print(
-    f'If P is true, and Q true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_biconditional("T", "T")}'
-)  # the material bi-conditional should return true if and only if both operands have the same truth value, and otherwise false
+        f'If P is true, and Q true; then P {Logical_Symbols["Material Conditional"][0]} Q shall return true: {m_biconditional("T", "T")}'
+    )  # the material bi-conditional should return true if and only if both operands have the same truth value, and otherwise false
     print(
-    f'If P is true, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("T", "F")}'
-)
+        f'If P is true, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("T", "F")}'
+    )
     print(
-    f'If P is false, and Q is true; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("F", "T")}'
-)
+        f'If P is false, and Q is true; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return false: {m_biconditional("F", "T")}'
+    )
     print(
-    f'If P is false, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return true: {m_biconditional("F", "F")}\n'
-)
+        f'If P is false, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return true: {m_biconditional("F", "F")}\n'
+    )
 
-# Use the enumerate() function to iterate over the dictionary
-for i, (key, value) in enumerate(Logical_Symbols.items()):
-    # Print the entry in a formatted and readable way
-    print(f"{i+1}. {key}: {value}")
+
+def enumeration_of_logical_symbols():
+    # Use the enumerate() function to iterate over the dictionary
+    for i, (key, value) in enumerate(Logical_Symbols.items()):
+        # Print the entry in a formatted and readable way
+        print(f"{i+1}. {key}: {value}")
+
+
+truth_table("P", "Q", "R")
