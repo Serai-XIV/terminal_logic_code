@@ -1,17 +1,35 @@
-# dictionary of all logical operator symbols
-Logical_Symbols = {
-    "Negation": ["¬", "~", "!", "not"],
-    "Conjunction": ["∧", "&", "·", "and"],
-    "Inclusive Disjunction": ["∨", "or"],
-    "Material Conditional": ["→", "⇒", "⊃", "if, then"],
-    "Material Bi-Conditional": ["↔", "⇔", "≡"],
-    "Universal Quantifier": "∀",
-    "Existential Quantifier": "∃",
-    "Falsum": "⊥",
-    "Verum": "⊤",
-    "Identical to": "=",
-    "Variables": ["x", "y", "z"],
-}
+"""
+Logical_Symbols
+==============
+
+This module defines a dictionary of logical operator symbols. The dictionary
+contains entries for different logical operators, such as negation, conjunction,
+and material conditional, and provides a list of symbols that can be used to
+represent each operator.
+
+The dictionary can be used as a reference for logical operator symbols, and
+can be easily updated and extended to add more operators or symbols.
+"""
+Logical_Symbols = dict(
+    Negation=["¬", "~", "!", "not"],
+    Conjunction=["∧", "&", "·", "and"],
+    Inclusive_Disjunction=["∨", "or"],
+    Material_Conditional=["→", "⇒", "⊃", "if, then"],
+    Material_Bi_Conditional=["↔", "⇔", "≡"],
+    Universal_Quantifier="∀",
+    Existential_Quantifier="∃",
+    Falsum="⊥",
+    Verum="⊤",
+    Identical_to="=",
+    Variables=["x", "y", "z"],
+)
+
+# Add more entries to the dictionary using the update() method
+Logical_Symbols.update(
+    Exclusive_Disjunction=["⊕", "xor"],
+    Implication=["⊢", "→"],
+    Equivalence=["≡", "::"],
+)
 
 # Lexicon for all non-logical symbols
 Non_Logical_Symbols = {
@@ -166,3 +184,7 @@ def Logical_operators():
     f'If P is false, and Q is false; then P {Logical_Symbols["Material Bi-Conditional"][0]} Q shall return true: {m_biconditional("F", "F")}\n'
 )
 
+# Use the enumerate() function to iterate over the dictionary
+for i, (key, value) in enumerate(Logical_Symbols.items()):
+    # Print the entry in a formatted and readable way
+    print(f"{i+1}. {key}: {value}")
