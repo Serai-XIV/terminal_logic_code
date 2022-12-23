@@ -54,6 +54,16 @@ Non_Logical_Symbols = {
     "Punctuation marks": "(,) ,",
 }
 
+# Lambda expressions for logical connectives
+connectives = {
+    'not': lambda x: not x,
+    'and': lambda x, y: x and y,
+    'or': lambda x, y: x or y,
+    'xor': lambda x, y: x != y,
+    'implies': lambda x, y: not x or y,
+    'iff': lambda x, y: x == y
+}
+
 # the principal of bivalnce is a semantic princiapl that states only two truth states are present (within a given logical system)
 Bivalence = {"True": "T", "False": "F"}
 
@@ -219,5 +229,5 @@ def enumeration_of_logical_symbols():
 
 
 # Test the truth table function
-print(truth_table(lambda x, y: x and y, [True, False]))
+print(truth_table(connectives["and"], [True, False]))
 # Output: [(True, True, True), (True, False, False), (False, True, False), (False, False, False)]
