@@ -156,8 +156,15 @@ def truth_table(operator, values):
             # Apply the operator to the values and add the result to the truth table
             truth_table.append((value1, value2, operator(value1, value2)))
 
-    # Return the truth table
-    return truth_table
+    col_widths = [max(len(str(value)) for value in col) for col in zip(*truth_table)]
+
+    # Print a header row
+    print("  ".join(str(i).ljust(col_widths[i]) for i in range(len(col_widths))))
+    print("-" * sum(col_widths))
+
+    # Print the data rows
+    for row in truth_table:
+        print("  ".join(str(value).ljust(col_widths[i]) for i, value in enumerate(row)))
 
 
 def Logical_operators():
@@ -229,5 +236,11 @@ def enumeration_of_logical_symbols():
 
 
 # Test the truth table function
-print(truth_table(connectives["and"], [True, False]))
-# Output: [(True, True, True), (True, False, False), (False, True, False), (False, False, False)]
+truth_table(connectives["and"], [True, False])
+# Output: 
+# 0      1      2    
+# ---------------
+# True   True   True
+# True   False  False
+# False  True   False
+# False  False  False
