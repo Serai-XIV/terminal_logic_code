@@ -136,7 +136,7 @@ def m_biconditional(Left_implication, right_implication):
     return Formula
 
 
-def truth_table(operator, values):
+def truth_table(operator, values): # FIXME: Set the atomic propositions to the side, and the logical expression as the header
     """
     Generate a truth table for a given logical operator applied to a list of boolean values.
 
