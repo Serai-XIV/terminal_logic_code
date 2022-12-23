@@ -40,7 +40,7 @@ Logical_Symbols = dict(
 
 # Add more entries to the dictionary using the update() method
 Logical_Symbols.update(
-    Exclusive_Disjunction=["⊕", "xor", '⊻'],
+    Exclusive_Disjunction=["⊕", "xor", "⊻"],
     Implication=["⊢", "→"],
     Equivalence=["≡", "::"],
 )
@@ -126,32 +126,28 @@ def m_biconditional(Left_implication, right_implication):
     return Formula
 
 
-def truth_table(
-    *statements,
-):  # FIXME: This function is not working properly, it should be taking in a variable number of statements as input, and print a truth table that shows the truth values of the statements for all possible combinations of truth values for the atomic propositions
+def truth_table(operator, values):
     """
-    Create a truth table for a given set of statements.
+    Generate a truth table for a given logical operator applied to a list of boolean values.
 
-    This function takes a variable number of statements as input, and prints a truth
-    table that shows the truth values of the statements for all possible combinations
-    of truth values for the atomic propositions.
-
-    Args:
-        *statements: a variable number of strings representing the statements to be included in the truth table.
+    Parameters:
+    - operator: a function that takes two boolean values as input and returns a boolean value.
+    - values: a list of boolean values.
 
     Returns:
-        None
+    - A list of tuples, each containing two input values and the result of applying the operator to those values.
     """
-    # Define a set of possible truth values
-    truth_values = {"T", "F"}
+    # Create a list to hold the truth table tuples
+    truth_table = []
 
-    # Iterate over the truth values set
-    for n in truth_values:
-        # For each element in the truth values set, print the element along with each element in the {"F", "T"} set
-        for number in {"F", "T"}:
-            print(n, number)
+    # Iterate over the input values
+    for value1 in values:
+        for value2 in values:
+            # Apply the operator to the values and add the result to the truth table
+            truth_table.append((value1, value2, operator(value1, value2)))
 
-    pass
+    # Return the truth table
+    return truth_table
 
 
 def Logical_operators():
@@ -222,4 +218,6 @@ def enumeration_of_logical_symbols():
         print(f"{i+1}. {key}: {value}")
 
 
-truth_table("P", "Q", "R")
+# Test the truth table function
+print(truth_table(lambda x, y: x and y, [True, False]))
+# Output: [(True, True, True), (True, False, False), (False, True, False), (False, False, False)]
