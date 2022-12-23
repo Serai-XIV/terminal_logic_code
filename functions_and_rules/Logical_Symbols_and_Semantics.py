@@ -40,7 +40,7 @@ Logical_Symbols = dict(
 
 # Add more entries to the dictionary using the update() method
 Logical_Symbols.update(
-    Exclusive_Disjunction=["⊕", "xor"],
+    Exclusive_Disjunction=["⊕", "xor", '⊻'],
     Implication=["⊢", "→"],
     Equivalence=["≡", "::"],
 )
