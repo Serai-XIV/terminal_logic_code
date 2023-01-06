@@ -136,37 +136,6 @@ def m_biconditional(Left_implication, right_implication):
     return Formula
 
 
-def truth_table(operator, values): # FIXME: Set the atomic propositions to the side, and the logical expression as the header
-    """
-    Generate a truth table for a given logical operator applied to a list of boolean values.
-
-    Parameters:
-    - operator: a function that takes two boolean values as input and returns a boolean value.
-    - values: a list of boolean values.
-
-    Returns:
-    - A list of tuples, each containing two input values and the result of applying the operator to those values.
-    """
-    # Create a list to hold the truth table tuples
-    truth_table = []
-
-    # Iterate over the input values
-    for value1 in values:
-        for value2 in values:
-            # Apply the operator to the values and add the result to the truth table
-            truth_table.append((value1, value2, operator(value1, value2)))
-
-    col_widths = [max(len(str(value)) for value in col) for col in zip(*truth_table)]
-
-    # Print a header row
-    print("  ".join(str(i).ljust(col_widths[i]) for i in range(len(col_widths))))
-    print("-" * sum(col_widths))
-
-    # Print the data rows
-    for row in truth_table:
-        print("  ".join(str(value).ljust(col_widths[i]) for i, value in enumerate(row)))
-
-
 def Logical_operators():
     print(
         f'If P is false, then {Logical_Symbols["Negation"][0]}P shall return true: {negation("F")}'
@@ -233,14 +202,3 @@ def enumeration_of_logical_symbols():
     for i, (key, value) in enumerate(Logical_Symbols.items()):
         # Print the entry in a formatted and readable way
         print(f"{i+1}. {key}: {value}")
-
-
-# Test the truth table function
-truth_table(connectives["and"], [True, False])
-# Output: 
-# 0      1      2    
-# ---------------
-# True   True   True
-# True   False  False
-# False  True   False
-# False  False  False
