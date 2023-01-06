@@ -4,7 +4,7 @@ import re
 
 def convert_formula(
     formula: str,
-) -> str:  # This function does not swap the antecedent with the consequent in a conditional statement.
+) -> str:  # FIXME: This function does not swap the antecedent with the consequent in a conditional statement.
     """
     Convert a propositional logic formula to natural language.
 
