@@ -1,3 +1,70 @@
+from Logical_Symbols_and_Semantics import Logical_Symbols
+import re
+
+
+def convert_formula(
+    formula: str,
+) -> str:  # This function does not swap the antecedent with the consequent in a conditional statement.
+    """
+    Convert a propositional logic formula to natural language.
+
+    Parameters:
+    formula (str): The propositional logic formula to convert.
+
+    Returns:
+    str: The natural language equivalent of the formula.
+
+    Examples:
+    >>> convert_formula("(¬p ∧ q) ∨ (p ∧ ¬q)")
+    "(NOT P AND Q) OR (P AND NOT Q)"
+    >>> convert_formula("(p → q) ∧ (q → r) ∧ (r → p)")
+    "(Q IF P) AND (R IF Q) AND (P IF R)"
+    """
+    # Replace logical connectives with natural language equivalents
+    for key in Logical_Symbols:
+        for symbol in Logical_Symbols[key]:
+            formula = formula.replace(symbol, convert_connective(key))
+    # Find all atomic propositions (lowercase letters)
+    atomic_props = re.findall(r"[a-z]", formula)
+    # Capitalize atomic propositions
+    for prop in atomic_props:
+        formula = formula.replace(prop, prop.upper())
+    # Swap position of "if" and atomic proposition
+    formula = re.sub(r"if (.)", r"\1 if", formula)
+
+    return formula.replace("--", "-")
+
+
+def convert_connective(connective: str) -> str:
+    """
+    Convert a logical connective to its natural language equivalent.
+
+    Parameters:
+    connective (str): The logical connective to convert.
+
+    Returns:
+    str: The natural language equivalent of the connective.
+
+    Examples:
+    >>> convert_connective("Negation")
+    "not"
+    >>> convert_connective("Conjunction")
+    "and"
+    >>> convert_connective("Inclusive_Disjunction")
+    "or"
+    """
+    if connective == "Negation":
+        return "not-"
+    elif connective == "Conjunction":
+        return "and"
+    elif connective == "Inclusive_Disjunction":
+        return "or"
+    elif connective == "Material_Conditional":
+        return "if"
+    else:
+        return connective
+
+
 def is_well_formed(
     formula: str,
 ) -> bool:  # FIXME This function needs to convert logical symbols into a natural language expression, and then capitalize all letters.
@@ -26,6 +93,8 @@ def is_well_formed(
         raise Exception(
             "The formula starts with two capital letters next to each other"
         )
+
+    formula = convert_formula(formula)
 
     # Define the valid characters
     valid_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789()"
@@ -133,3 +202,5 @@ if __name__ == "__main__":
     # This function should say "All tests passed!" if all tests pass
     test_is_well_formed()
     print("All tests passed!")
+    print(convert_formula("(p → q) ∧ (q → r) ∧ (r → p)"))
+    print(convert_formula("(¬p ∧ q) ∨ (p ∧ ¬q)"))
