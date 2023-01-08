@@ -1,5 +1,27 @@
-from typing import List, Dict
-from Logical_Symbols_and_Semantics import connectives
+from typing import List, Dict, Any
+from Logical_Symbols_and_Semantics import ops
+import itertools
+import string
+import functools
+import re
+
+
+def delete_nulls(lst: List[List[int]]) -> List[List[int]]:
+    """
+    Removes all occurrences of None in the given list and its nested lists.
+
+    Parameters:
+    - lst: a list of lists of integers.
+
+    Returns:
+    - The list with all occurrences of None removed.
+    """
+    for i, elem in enumerate(lst):
+        if elem is None:
+            del lst[i]
+        elif isinstance(elem, list):
+            delete_nulls(elem)
+    return lst
 
 
 def extracting_atoms(s: str) -> List[str]:
@@ -44,45 +66,107 @@ def extracting_truth_values(s: str) -> Dict[str, List[bool]]:
     return atoms_dict
 
 
-def truth_table(
-    operator, values
-):  # FIXME: Set the atomic propositions to the side, and the logical expression as the header. Also make it to where the function utilizes the function from the previous snippet.
+# Regular expression pattern for matching atomic propositions
+prop_pattern = re.compile("[a-z]")
+
+
+def generate_truth_table(
+    formula: str, num_props: int, semantics: Dict[str, Any]
+) -> List[List[int]]:
     """
-    Generate a truth table for a given logical operator applied to a list of boolean values.
+    Generates a truth table for the given logical formula.
 
     Parameters:
-    - operator: a function that takes two boolean values as input and returns a boolean value.
-    - values: a list of boolean values.
+    - formula: a string representing a logical formula in propositional logic.
+        The formula can contain the following operators: negation ('~'), conjunction ('&'),
+        disjunction ('|'), and implication ('->').
+    - num_props: an integer representing the number of atomic propositions in the formula.
+    - semantics: a dictionary mapping each operator in the formula to a function that defines
+        its semantics. The functions should take in two boolean arguments and return a boolean.
+        For example, the semantics for negation could be defined as:
+        {'~': lambda x: not x}
 
     Returns:
-    - A list of tuples, each containing two input values and the result of applying the operator to those values.
+    - A truth table as a list of lists, where each inner list represents a row in the table.
+        The first row contains the labels for each column (i.e. the atomic propositions and 'output').
+        Each subsequent row contains the truth values for each atomic proposition and the output
+        of the formula for those truth values.
     """
-    # Create a list to hold the truth table tuples
+    # Initialize empty truth table with num_props + 1 columns (for output)
     truth_table = []
 
-    # Iterate over the input values
-    for value1 in values:
-        for value2 in values:
-            # Apply the operator to the values and add the result to the truth table
-            truth_table.append((value1, value2, operator(value1, value2)))
+    # Generate a list of atomic propositions (e.g. ['p', 'q', 'r', ...])
+    atomic_props = list(string.ascii_lowercase)[:num_props]
 
-    col_widths = [max(len(str(value)) for value in col) for col in zip(*truth_table)]
+    # Generate all possible combinations of inputs
+    input_combinations = itertools.product([0, 1], repeat=num_props)
 
-    # Print a header row
-    print("  ".join(str(i).ljust(col_widths[i]) for i in range(len(col_widths))))
-    print("-" * sum(col_widths))
+    # Evaluate the formula for each combination of inputs and add a row to the truth table
+    for inputs in input_combinations:
+        # Bind each atomic proposition to its corresponding input value
+        prop_values = dict(zip(atomic_props, inputs))
+        # Parse and evaluate the formula with the given input values and add the output to the truth table
+        truth_table.append(
+            list(inputs) + [parse_and_eval(formula, semantics, prop_values)]
+        )
 
-    # Print the data rows
-    for row in truth_table:
-        print("  ".join(str(value).ljust(col_widths[i]) for i, value in enumerate(row)))
+    # Add the atomic propositions as column labels
+    truth_table.insert(0, atomic_props + ["output"])
+
+    return delete_nulls(truth_table)
 
 
-# Test the truth table function
-truth_table(connectives["and"], [True, False])
-# Output:
-# 0      1      2
-# ---------------
-# True   True   True
-# True   False  False
-# False  True   False
-# False  False  False
+def parse_and_eval(
+    formula: str, semantics: Dict[str, Any], prop_values: Dict[str, int]
+) -> int:
+    """
+    Recursively parses and evaluates a logical formula.
+
+    Parameters:
+    - formula: a string representing a logical formula in propositional logic.
+        The formula can contain the following operators: negation ('~'), conjunction ('&'),
+        disjunction ('|'), and implication ('->').
+    - semantics: a dictionary mapping each operator in the formula to a function that defines
+        its semantics. The functions should take in two boolean arguments and return a boolean.
+        For example, the semantics for negation could be defined as:
+        {'~': lambda x: not x}
+    - prop_values: a dictionary mapping each atomic proposition in the formula to its truth value
+        (either 0 or 1).
+
+    Returns:
+    - The truth value of the formula (either 0 or 1).
+    """
+    # Check if the formula is an atomic proposition
+    match = prop_pattern.fullmatch(formula)
+    if match:
+        # Return the value of the atomic proposition
+        return prop_values[formula]
+    else:
+        # Check if the formula is a negation
+        if formula[:3] == "not":
+            # Parse and evaluate the negated formula
+            return not parse_and_eval(formula[3:], semantics, prop_values)
+        else:
+            # Find the first operator in the formula
+            for i, c in enumerate(formula):
+                if c in ops:
+                    # Split the formula into the operator and its operands
+                    op = c
+                    left = formula[:i]
+                    right = formula[i + 1 :]
+                    # Parse and evaluate the operands
+                    left_eval = parse_and_eval(left, semantics, prop_values)
+                    right_eval = parse_and_eval(right, semantics, prop_values)
+                    # Apply the operator to the operands
+                    return ops
+
+
+# below is a little test, plus let me know if there are any bugs
+
+formula = "(p and q) or (r and s)"
+num_props = 4
+semantics = (
+    {}
+)  # I understand that this is an empty dictionary, and I explicityly state in the documenation above that the user must define the semantics of the operators. I'm not sure how to do this, but what is really doing the work is the 'ops' disctionary, I just wanted to use semantics since it made it more meaningful.
+truth_table = generate_truth_table(formula, num_props, semantics)
+print(truth_table)
