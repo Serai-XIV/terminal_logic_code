@@ -10,6 +10,7 @@ represent each operator.
 The dictionary can be used as a reference for logical operator symbols, and
 can be easily updated and extended to add more operators or symbols.
 """
+import operator
 
 # A dictionary that maps logical operators to their corresponding symbols in various notation systems
 Logical_Symbols = dict(
@@ -54,14 +55,13 @@ Non_Logical_Symbols = {
     "Punctuation marks": "(,) ,",
 }
 
-# Lambda expressions for logical connectives
-connectives = {
-    'not': lambda x: not x,
-    'and': lambda x, y: x and y,
-    'or': lambda x, y: x or y,
-    'xor': lambda x, y: x != y,
-    'implies': lambda x, y: not x or y,
-    'iff': lambda x, y: x == y
+# Dictionary mapping operator symbols to Python operators
+ops = {
+    "and": operator.and_,
+    "or": operator.or_,
+    "not": operator.not_,
+    "implies": lambda a, b: (not a) or b,
+    "iff": operator.eq,
 }
 
 # the principal of bivalnce is a semantic princiapl that states only two truth states are present (within a given logical system)
