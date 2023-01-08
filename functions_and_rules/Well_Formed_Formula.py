@@ -318,7 +318,7 @@ def test_translate_expression():
     # Test the translate_expression function with each symbol in the Logical_Symbols dictionary
     for i in range(3):
         chosen_symbols = choose_set_of_symbols(i)
-        print(f"Testing with symbols {chosen_symbols}")
+        print(f"Testing with symbols {chosen_symbols[0:5]}")
         print(translate_expression("p and q", chosen_symbols))
         print(translate_expression("p or q", chosen_symbols))
         print(translate_expression("not-p", chosen_symbols))
