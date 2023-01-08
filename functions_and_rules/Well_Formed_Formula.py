@@ -1,5 +1,121 @@
 from Logical_Symbols_and_Semantics import Logical_Symbols
+from typing import List
 import re
+
+
+def choose_set_of_symbols(index):
+    """
+    Choose a set of symbols to represent logical operators.
+
+    Parameters:
+    index (int): The index of the symbol to be chosen from the Logical_Symbols dictionary.
+
+    Returns:
+    list: A list of chosen symbols.
+
+    Logical_Symbols:
+    A dictionary containing various logical symbols used in logic and mathematics, such as symbols for:
+        - Negation: represents the logical operation of negation, which is the reversal of the truth value of a proposition
+        - Conjunction: represents the logical operation of conjunction, which is the combination of two propositions in such a way that the resulting proposition is only true if both of the original propositions are true
+        - Inclusive disjunction: represents the logical operation of inclusive disjunction, which is the combination of two propositions in such a way that the resulting proposition is true if either of the original propositions are true (or if both are true)
+        - Material conditional: represents the logical operation of material conditional, which is a type of conditional statement in logic that is only considered true if the antecedent is false or the consequent is true
+        - Material biconditional: represents the logical operation of material biconditional, which is a type of conditional statement in logic that is only considered true if the antecedent and consequent are both true or both false
+    """
+    # Create an empty list to store the chosen symbols
+    chosen_symbols = []
+    # Iterate over the items in the Logical_Symbols dictionary
+    for _, symbols in Logical_Symbols.items():
+        # If the index is within the range of the symbols list, append the symbol at the given index to the chosen_symbols list
+        # Otherwise, append an empty string to the chosen_symbols list
+        if index < len(symbols):
+            chosen_symbols.append(symbols[index])
+        else:
+            chosen_symbols.append("")
+
+    if index > 0:
+        # replace the empty string with the symbol at index 2
+        chosen_symbols[2] = Logical_Symbols["Inclusive_Disjunction"][0]
+    # Return the list of chosen symbols
+    return chosen_symbols
+
+
+def choose_set_of_symbols(index):
+    """
+    Choose a set of symbols to represent logical operators.
+
+    Parameters:
+    index (int): The index of the symbol to be chosen from the Logical_Symbols dictionary.
+
+    Returns:
+    list: A list of chosen symbols.
+
+    Logical_Symbols:
+    A dictionary containing various logical symbols used in logic and mathematics, such as symbols for:
+        - Negation: represents the logical operation of negation, which is the reversal of the truth value of a proposition
+        - Conjunction: represents the logical operation of conjunction, which is the combination of two propositions in such a way that the resulting proposition is only true if both of the original propositions are true
+        - Inclusive disjunction: represents the logical operation of inclusive disjunction, which is the combination of two propositions in such a way that the resulting proposition is true if either of the original propositions are true (or if both are true)
+        - Material conditional: represents the logical operation of material conditional, which is a type of conditional statement in logic that is only considered true if the antecedent is false or the consequent is true
+        - Material biconditional: represents the logical operation of material biconditional, which is a type of conditional statement in logic that is only considered true if the antecedent and consequent are both true or both false
+    """
+    # Create an empty list to store the chosen symbols
+    chosen_symbols = []
+    # Iterate over the items in the Logical_Symbols dictionary
+    for _, symbols in Logical_Symbols.items():
+        # If the index is within the range of the symbols list, append the symbol at the given index to the chosen_symbols list
+        # Otherwise, append an empty string to the chosen_symbols list
+        if index < len(symbols):
+            chosen_symbols.append(symbols[index])
+        else:
+            chosen_symbols.append("")
+
+    if index > 0:
+        # replace the empty string with the symbol at index 2
+        chosen_symbols[2] = Logical_Symbols["Inclusive_Disjunction"][0]
+    # Return the list of chosen symbols
+    return chosen_symbols
+
+
+def translate_expression(expression: str, chosen_symbol: List[str]) -> str:
+    """
+    Translates a logical expression in natural language to a logical expression in
+    symbolic notation.
+
+    Parameters:
+    expression (str): The logical expression in natural language to be translated.
+
+    Returns:
+    str: The logical expression in symbolic notation.
+
+    Examples:
+    >>> translate_expression("p and q")
+    "P & Q"
+    >>> translate_expression("p or q")
+    "P ∨ Q"
+    >>> translate_expression("not-p")
+    "~P"
+    >>> translate_expression("if p then q")
+    "P → Q"
+    >>> translate_expression("p iff q")
+    "P ↔ Q"
+    """
+
+    # Replace the logical operators in the expression with the chosen symbols
+    replacements = [
+        ("and", chosen_symbol[1]),
+        ("or", chosen_symbol[2]),
+        ("not-", chosen_symbol[0]),
+        ("if ", ""),
+        ("then", chosen_symbol[3]),
+        ("iff", chosen_symbol[4]),
+    ]
+    for old, new in replacements:
+        expression = expression.replace(old, new)
+    # Make every atomic alphabetical character capitalized
+    expression = "".join(
+        [c.upper() if c.isalpha() and len(c) == 1 else c for c in expression]
+    )
+
+    return expression
 
 
 def convert_formula(
@@ -198,9 +314,22 @@ def test_is_well_formed():
         ), "Exception not raised for formula starting with two capital letters next to each other"
 
 
+def test_translate_expression():
+    # Test the translate_expression function with each symbol in the Logical_Symbols dictionary
+    for i in range(3):
+        chosen_symbols = choose_set_of_symbols(i)
+        print(f"Testing with symbols {chosen_symbols}")
+        print(translate_expression("p and q", chosen_symbols))
+        print(translate_expression("p or q", chosen_symbols))
+        print(translate_expression("not-p", chosen_symbols))
+        print(translate_expression("if p then q", chosen_symbols))
+        print(translate_expression("p iff q", chosen_symbols))
+
+
 if __name__ == "__main__":
     # This function should say "All tests passed!" if all tests pass
     test_is_well_formed()
     print("All tests passed!")
     print(convert_formula("(p → q) ∧ (q → r) ∧ (r → p)"))
     print(convert_formula("(¬p ∧ q) ∨ (p ∧ ¬q)"))
+    test_translate_expression()
