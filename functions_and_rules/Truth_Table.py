@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Union, Any
 from Logical_Symbols_and_Semantics import ops
 import itertools
 import string
@@ -69,7 +69,7 @@ def extracting_truth_values(s: str) -> Dict[str, List[bool]]:
 # Regular expression pattern for matching atomic propositions
 prop_pattern = re.compile("[a-z]")
 
-
+# FIXME: Make the propostional variables match the atomic propositions of the formula.
 def generate_truth_table(
     formula: str, num_props: int, semantics: Dict[str, Any]
 ) -> List[List[int]]:
@@ -160,7 +160,37 @@ def parse_and_eval(
                     # Apply the operator to the operands
                     return ops
 
+def print_truth_table(truth_list: List[List[Union[int, str]]], formula: str) -> None:
+    """
+    Prints a modified truth table with the given formula.
 
+    Parameters:
+    truth_list (List[List[Union[int, str]]]): A list of lists representing the truth table, where each sublist
+        represents a row in the truth table. The last element of the first list represents the formula, and the
+        last element of every other list is a result of the formula being applied to that row.
+    formula (str): The formula to be applied to each row in the truth table.
+
+    Returns:
+    None
+    """
+    # Initialize the modified truth table with the input list
+    modified_truth_table = truth_list
+
+    # Replace the last element of the first list with the formula
+    modified_truth_table[0][-1] = formula
+
+    # Put the last element within every other list in a separate list at the bottom of the formula
+    for row in modified_truth_table[1:]:
+        result = row.pop(-1)
+        row.append([result])
+
+    # Calculate the maximum width of each column
+    column_widths = [len(str(item)) for row in modified_truth_table for item in row]
+    column_widths = [max(column_widths[i::len(modified_truth_table[0])]) for i in range(len(modified_truth_table[0]))]
+
+    # Print the modified truth table with the columns aligned
+    for row in modified_truth_table:
+        print("  ".join(str(item).ljust(column_widths[i]) for i, item in enumerate(row)))
 # below is a little test, plus let me know if there are any bugs
 
 formula = "(p and q) or (r and s)"
@@ -170,3 +200,8 @@ semantics = (
 )  # I understand that this is an empty dictionary, and I explicityly state in the documenation above that the user must define the semantics of the operators. I'm not sure how to do this, but what is really doing the work is the 'ops' disctionary, I just wanted to use semantics since it made it more meaningful.
 truth_table = generate_truth_table(formula, num_props, semantics)
 print(truth_table)
+
+truth_list = [['p', 'q', 'r', 'output'], [0, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 1, 1, 1], [1, 0, 0, 1], [1, 0, 1, 1], [1, 1, 0, 1], [1, 1, 1, 1]]
+formula2 = "(p or q) and r"
+
+print_truth_table(truth_list, formula2)
