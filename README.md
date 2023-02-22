@@ -5,7 +5,7 @@
   - [Terminal-Logic-Code](#terminal-logic-code)
   - [Functions](#functions)
     - [`extracting_atoms(x)`](#extracting_atomss-str---liststr)
-    - [`extracting_truth_values`](#extracting_truth_valuess-str---dictstr-listbool)
+    - [`extracting_truth_values(x)`](#extracting_truth_valuess-str---dictstr-listbool)
 
 # Discord Bot for Logic Calculations
 
