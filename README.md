@@ -1,3 +1,11 @@
+# Table of Contents
+
+- [Discord Bot for Logic Calculations](#discord-bot-for-logic-calculations)
+  - [Features](#features)
+  - [Terminal-Logic-Code](#terminal-logic-code)
+  - [Functions](#functions)
+    - [`extracting_atoms(s: str) -> List[str]`](#extracting_atomss-str---liststr)
+
 # Discord Bot for Logic Calculations
 
 This bot is designed to take natural language input and convert it into formal language for logical calculations. The primary focus is on generating truth tables and understanding the semantics of logical operators.
