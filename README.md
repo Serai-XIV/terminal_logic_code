@@ -67,7 +67,7 @@ Generates a truth table for a logical statement by extracting the atoms and list
 extracting_truth_values("(P IF Q) AND (Q IF R) AND (R IF P)")
 extracting_truth_values("(p → q) ∧ (q → r) ∧ (r → p)")
 ```
-###Output
+### Output
 
 	{'P': [False, True], 'Q': [False, True], 'R': [False, True]}
 	{'p': [False, True], 'q': [False, True], 'r': [False, True]}
